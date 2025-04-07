@@ -20,7 +20,7 @@ jobs:
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with: 
           name: dist-files
           path: |
