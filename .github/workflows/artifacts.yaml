@@ -16,7 +16,7 @@ jobs:
       - name: running test
         run: npm test
       - name: running test
-        run: npm build run
+        run: npm run build
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
