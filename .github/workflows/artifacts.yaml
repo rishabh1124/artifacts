@@ -13,6 +13,8 @@ jobs:
           node-version: 18
       - name: install dependencies 
         run: npm ci
+      - name: running build command 
+        run: npm run build
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
