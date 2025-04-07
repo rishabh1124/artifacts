@@ -15,6 +15,8 @@ jobs:
         run: npm ci
       - name: running test
         run: npm test
+      - name: running test
+        run: npm build run
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
