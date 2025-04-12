@@ -28,11 +28,11 @@ jobs:
     needs: test-and-build
     steps:
           - name: get code
-            uses: actions/checkout@v2
-          - name: install nodejs
-            run: ls 
-          - uses: actions/setup-node@v3
+            uses: actions/download-artifact@v4
             with:
-              node-version: 18
+              name: dist-files
           - name: deployment
             run: echo deployinggggg....
+          - name: cat file
+            run: cat file 
+            
