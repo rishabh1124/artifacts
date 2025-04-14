@@ -31,6 +31,10 @@ jobs:
             uses: actions/download-artifact@v4
             with:
               name: dist-files
+          - name: get code
+            uses: actions/checkout@v2
+          - name: install dependencies 
+            run: npm ci  
           - name: deployment
             run: echo deployinggggg....
           - name: cat file
