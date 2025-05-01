@@ -15,6 +15,9 @@ jobs:
         run: npm ci
       - name: running build command 
         run: echo testing > file
+      - name: test code 
+        run: npm run test 
+        
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
