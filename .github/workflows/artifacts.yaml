@@ -17,7 +17,7 @@ jobs:
         run: echo testing > file
       - name: test code 
         run: npm run test 
-        if: failure()
+        continue-on-error: true
       - name: listing file
         run: ls -ltrh
       - name: upload artifacts
