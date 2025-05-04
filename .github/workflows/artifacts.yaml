@@ -1,44 +1,36 @@
-name: test project
-on: [push, workflow_dispatch]
-jobs:
-  test-and-build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: get code
-        uses: actions/checkout@v2
-      - name: install nodejs
-        run: ls 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: install dependencies 
-        run: npm ci
-      - name: running build command 
-        run: echo testing > file
-      - name: test code 
-        run: npm run test 
-        continue-on-error: true
-      - name: listing file
-        run: ls -ltrh
-      - name: upload artifacts
-        uses: actions/upload-artifact@v4
-        with: 
-          name: dist-files
-          path: |
-            file
-  deployment:
-    runs-on: ubuntu-latest
-    needs: test-and-build
-    steps:
-          - name: get code
-            uses: actions/download-artifact@v4
-            with:
-              name: dist-files
-          - name: get code
-            uses: actions/checkout@v2
-          - name: install dependencies 
-            run: npm ci  
-          - name: deployment
-            run: echo deployinggggg....
+name: Node.js CI
 
-            
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests (continue on error)
+        run: npm test
+        continue-on-error: true
+
+      - name: Always run cleanup/logging step
+        if: ${{ always() }}
+        run: echo "This step runs regardless of test result"
